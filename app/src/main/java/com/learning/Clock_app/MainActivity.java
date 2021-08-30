@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity  {
         FragmentAdapter fragmentAdapter = new FragmentAdapter(fm, getLifecycle());
         viewPager2.setAdapter(fragmentAdapter);
 
-        bottomNav.setOnNavigationItemSelectedListener(item -> {
+        bottomNav.setOnItemSelectedListener(item -> {
 
             int itemId = item.getItemId();
 
