@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +40,16 @@ public class FragmentAlarms extends Fragment {
         View view = inflater.inflate(R.layout.fragment_alarms, container, false);
 
         FloatingActionButton add_btn = view.findViewById(R.id.alarms_btn_add);
+
+        getChildFragmentManager().setFragmentResultListener("requestKey", this, (requestKey, bundle) -> {
+            int hour = bundle.getInt("hour");
+            int minute = bundle.getInt("minute");
+            String label = bundle.getString("label");
+            String days = bundle.getString("days");
+
+            // Do something with the result
+        });
+
 
         Log.d(TAG, "onCreateView: Started");
 

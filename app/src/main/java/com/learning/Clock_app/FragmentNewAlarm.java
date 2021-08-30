@@ -1,6 +1,5 @@
 package com.learning.Clock_app;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +21,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import Clock_app.R;
 
@@ -40,8 +38,8 @@ public class FragmentNewAlarm extends Fragment {
 
         FloatingActionButton back_btn = view.findViewById(R.id.alarm_btn_back);
         back_btn.setOnClickListener(v -> {
-            ViewPager2 viewPager2 = Objects.requireNonNull(getActivity()).findViewById(R.id.main_vp2);
-            viewPager2.setCurrentItem(0);
+//            ViewPager2 viewPager2 = requireActivity().findViewById(R.id.main_vp2);
+//            viewPager2.setCurrentItem(0);
         });
 
         EditText label = view.findViewById(R.id.alarm_et_label);
@@ -49,9 +47,13 @@ public class FragmentNewAlarm extends Fragment {
         add_btn.setOnClickListener(vi -> {
             AlarmModel alarmModel;
 
+            int hour = timePicker.getHour();
+            int minute = timePicker.getMinute();
+            String label_txt = label.getText().toString();
+            String days_txt = days.getText().toString();
+
             try {
-                alarmModel = new AlarmModel(-1, timePicker.getHour(), timePicker.getMinute(),
-                        label.getText().toString(), days.getText().toString(), true);
+                alarmModel = new AlarmModel(-1, hour, minute, label_txt, days_txt, true);
                 Toast.makeText(getActivity(), alarmModel.toString(), Toast.LENGTH_SHORT).show();
 
             }catch (Exception e){
@@ -64,8 +66,15 @@ public class FragmentNewAlarm extends Fragment {
             boolean success = databaseHelper.addOne(alarmModel);
             Toast.makeText(getActivity(), "Success =" + success, Toast.LENGTH_SHORT).show();
 
-            ViewPager2 viewPager2 = Objects.requireNonNull(getActivity()).findViewById(R.id.main_vp2);
-            viewPager2.setCurrentItem(0);
+            Bundle result = new Bundle();
+            result.putInt("hour", hour);
+            result.putInt("minute", minute);
+            result.putString("label", label_txt);
+            result.putString("days", days_txt);
+            getParentFragmentManager().setFragmentResult("requestKey", result);
+
+//            ViewPager2 viewPager2 = requireActivity().findViewById(R.id.main_vp2);
+//            viewPager2.setCurrentItem(0);
         });
 
         LinearLayout linearLayout = view.findViewById(R.id.alarm_ll_repeat);
