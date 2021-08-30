@@ -14,7 +14,7 @@ public class FragmentAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 3;
     }
 
     @NonNull
@@ -25,8 +25,6 @@ public class FragmentAdapter extends FragmentStateAdapter {
                 return new FragmentStopper();
             case 2:
                 return new FragmentTimer();
-            case 3:
-                return new FragmentNewAlarm(); //TODO take care of this, it shouldn't be able to do it
         }
         return new FragmentAlarms();
         }

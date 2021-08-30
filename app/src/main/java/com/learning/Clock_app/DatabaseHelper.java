@@ -54,6 +54,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
+    public boolean deleteOne(AlarmModel alarmModel){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " + ALARMS_TABLE + " WHERE " + ID + " = " + alarmModel.getId();
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public List<AlarmModel> getEveryone(){
         List<AlarmModel> returnList = new ArrayList<>();
 

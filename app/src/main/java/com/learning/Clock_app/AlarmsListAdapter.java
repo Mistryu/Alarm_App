@@ -19,12 +19,18 @@ import Clock_app.R;
 
 public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.MyViewHolder> {
 
+    public interface OnItemClickListener {
+        void onItemClick(AlarmModel alarmModel);
+    }
+
     private final Context context;
     private final List<AlarmModel> alarmModels;
+    private OnItemClickListener listener;
 
-    public AlarmsListAdapter(Context ct, List<AlarmModel> aM){
+    public AlarmsListAdapter(Context ct, List<AlarmModel> aM, OnItemClickListener listener){
         this.context = ct;
         this.alarmModels = aM;
+        this.listener = listener;
     }
 
     @NonNull
@@ -44,6 +50,7 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
         holder.time_tv.setText(alarmModel.getHour() + ":" + alarmModel.getMinute());
         holder.days_tv.setText(alarmModel.getDays());
         holder.switch_material.setActivated(true);
+        holder.bind(alarmModels.get(position), listener);
     }
 
     @Override
@@ -64,6 +71,18 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
             days_tv = itemView.findViewById(R.id.alarm_lay_days_tv);
             switch_material = itemView.findViewById(R.id.alarm_aly_switch);
         }
+
+        public void bind(final AlarmModel alarmModel, final OnItemClickListener listener){
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(alarmModel);
+                }
+            });
+
+        }
     }
 
+
 }
+

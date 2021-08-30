@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.learning.Clock_app.FragmentNewAlarm"/>
+        <activity android:name="com.learning.Clock_app.ActivityNewAlarm"
+            android:parentActivityName="com.learning.Clock_app.MainActivity"/>
     </application>
 
 </manifest>

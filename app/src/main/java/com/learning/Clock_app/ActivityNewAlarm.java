@@ -1,9 +1,8 @@
 package com.learning.Clock_app;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -12,10 +11,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,26 +21,25 @@ import java.util.List;
 
 import Clock_app.R;
 
-public class FragmentNewAlarm extends Fragment {
+public class ActivityNewAlarm extends AppCompatActivity {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_new_alarm, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_alarm);
 
-        TimePicker timePicker = view.findViewById(R.id.alarm_timepic);
+        TimePicker timePicker = findViewById(R.id.alarm_timepic);
         timePicker.setIs24HourView(true);
 
-        TextView days = view.findViewById(R.id.alarm_tv_days);
+        TextView days = findViewById(R.id.alarm_tv_days);
 
-        FloatingActionButton back_btn = view.findViewById(R.id.alarm_btn_back);
+        FloatingActionButton back_btn = findViewById(R.id.alarm_btn_back);
         back_btn.setOnClickListener(v -> {
-//            ViewPager2 viewPager2 = requireActivity().findViewById(R.id.main_vp2);
-//            viewPager2.setCurrentItem(0);
+            startActivity(new Intent(this, MainActivity.class));
         });
 
-        EditText label = view.findViewById(R.id.alarm_et_label);
-        FloatingActionButton add_btn = view.findViewById(R.id.alarm_btn_add);
+        EditText label = findViewById(R.id.alarm_et_label);
+        FloatingActionButton add_btn = findViewById(R.id.alarm_btn_add);
         add_btn.setOnClickListener(vi -> {
             AlarmModel alarmModel;
 
@@ -54,33 +50,30 @@ public class FragmentNewAlarm extends Fragment {
 
             try {
                 alarmModel = new AlarmModel(-1, hour, minute, label_txt, days_txt, true);
-                Toast.makeText(getActivity(), alarmModel.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, alarmModel.toString(), Toast.LENGTH_SHORT).show();
 
             }catch (Exception e){
-                Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
                 alarmModel = new AlarmModel(-1, -1, -1, "ERROR", "ERROR", false);
             }
 
-            DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+            DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
             boolean success = databaseHelper.addOne(alarmModel);
-            Toast.makeText(getActivity(), "Success =" + success, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Success =" + success, Toast.LENGTH_SHORT).show();
 
-            Bundle result = new Bundle();
-            result.putInt("hour", hour);
-            result.putInt("minute", minute);
-            result.putString("label", label_txt);
-            result.putString("days", days_txt);
-            getParentFragmentManager().setFragmentResult("requestKey", result);
-
-//            ViewPager2 viewPager2 = requireActivity().findViewById(R.id.main_vp2);
-//            viewPager2.setCurrentItem(0);
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("hour", hour);
+            intent.putExtra("minute", minute);
+            intent.putExtra("label", label_txt);
+            intent.putExtra("days", days_txt);
+            startActivity(intent);
         });
 
-        LinearLayout linearLayout = view.findViewById(R.id.alarm_ll_repeat);
+        LinearLayout linearLayout = findViewById(R.id.alarm_ll_repeat);
 
         linearLayout.setOnClickListener(w -> {
-            Dialog dialog = new Dialog(getContext());
+            Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.dialog_pick_days);
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             dialog.setCancelable(false);
@@ -102,9 +95,8 @@ public class FragmentNewAlarm extends Fragment {
             });
             dialog.show();
         });
-
-        return view;
     }
+
     private void changeDays(TextView days, List<CheckBox> checkDays){
         StringBuilder week_day = new StringBuilder();
         for (CheckBox cb: checkDays) {
