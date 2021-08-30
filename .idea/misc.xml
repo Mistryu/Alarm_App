@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/layout/alarm_layout.xml" value="0.4041666666666667" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/layout/dialog_pick_days.xml" value="0.22685185185185186" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/layout/fragment_alarms.xml" value="0.4041666666666667" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/layout/fragment_new_alarm.xml" value="0.4041666666666667" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/layout/fragment_stopper.xml" value="0.4041666666666667" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/layout/fragment_timer.xml" value="0.4041666666666667" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/layout/stopper_pinned.xml" value="0.18796296296296297" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

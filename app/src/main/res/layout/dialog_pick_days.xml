@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/checkbox_Mo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/monday"
+        android:checked="true"/>
+    <CheckBox
+        android:id="@+id/checkbox_Tu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/tuesday"/>
+    <CheckBox
+        android:id="@+id/checkbox_We"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/wednesday"/>
+    <CheckBox
+        android:id="@+id/checkbox_Th"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/thursday"/>
+    <CheckBox
+        android:id="@+id/checkbox_Fr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/friday"/>
+    <CheckBox
+        android:id="@+id/checkbox_Sa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/saturday"/>
+    <CheckBox
+        android:id="@+id/checkbox_Su"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/sunday"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/dialog_btn_ok"
+        style="@style/Buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/ok"
+        android:src="@drawable/ic_check"
+        app:tint="@color/blue" />
+
+</LinearLayout>
