@@ -1,18 +1,13 @@
 package com.learning.Clock_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
-import java.util.List;
-import java.util.Objects;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import Clock_app.R;
                                                     // implements FragmentAlarms.MyInterfaceListener
