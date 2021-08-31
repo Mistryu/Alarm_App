@@ -1,5 +1,6 @@
 package com.learning.Clock_app;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,11 +32,19 @@ public class ActivityNewAlarm extends AppCompatActivity {
         timePicker.setIs24HourView(true);
 
         TextView days = findViewById(R.id.alarm_tv_days);
+        EditText label = findViewById(R.id.alarm_et_label);
 
         FloatingActionButton back_btn = findViewById(R.id.alarm_btn_back);
         back_btn.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
-        EditText label = findViewById(R.id.alarm_et_label);
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("hour")){
+            timePicker.setHour(intent.getIntExtra("hour", 12));
+            timePicker.setMinute(intent.getIntExtra("minute", 0));
+            days.setText(intent.getStringExtra("days"));
+            label.setText(intent.getStringExtra("label"));
+        }
+
         FloatingActionButton add_btn = findViewById(R.id.alarm_btn_add);
         add_btn.setOnClickListener(vi -> {
             int hour = timePicker.getHour();
@@ -44,13 +53,17 @@ public class ActivityNewAlarm extends AppCompatActivity {
             String days_txt = days.getText().toString();
 
 
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("hour", hour);
-            intent.putExtra("minute", minute);
-            intent.putExtra("label", label_txt);
-            intent.putExtra("days", days_txt);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
+            Intent intentMain = new Intent(this, MainActivity.class);
+            intentMain.putExtra("hour", hour);
+            intentMain.putExtra("minute", minute);
+            intentMain.putExtra("label", label_txt);
+            intentMain.putExtra("days", days_txt);
+            intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            if (intent != null && intent.hasExtra("id")) { //lambda...
+                DatabaseHelper db = new DatabaseHelper(this);
+                db.deleteOne(intent.getIntExtra("id", -1));
+            }
+            startActivity(intentMain);
         });
 
         LinearLayout linearLayout = findViewById(R.id.alarm_ll_repeat);

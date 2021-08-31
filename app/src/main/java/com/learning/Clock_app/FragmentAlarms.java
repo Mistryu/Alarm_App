@@ -1,5 +1,6 @@
 package com.learning.Clock_app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,8 +41,15 @@ public class FragmentAlarms extends Fragment {
         alarmModelList = db.getEveryone();
 
         adapter = new AlarmsListAdapter(this.getContext(), alarmModelList, alarmModel ->{
-            boolean bo = db.deleteOne(alarmModel.getId());
-            Toast.makeText(this.getContext(), bo + "", Toast.LENGTH_SHORT).show();
+//            boolean bo = db.deleteOne(alarmModel.getId());
+//            Toast.makeText(this.getContext(), bo + "", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), ActivityNewAlarm.class);
+            intent.putExtra("id", alarmModel.getId());
+            intent.putExtra("hour", alarmModel.getHour());
+            intent.putExtra("minute", alarmModel.getMinute());
+            intent.putExtra("days", alarmModel.getDays());
+            intent.putExtra("label", alarmModel.getLabel());
+            startActivity(intent);
         });
 
         alarms_rv.setAdapter(adapter);
@@ -49,8 +57,10 @@ public class FragmentAlarms extends Fragment {
         return view;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addAlarmToList(AlarmModel alarmModel) {
             alarmModelList.add(alarmModel);
-            adapter.notifyItemInserted(alarmModelList.size() - 1);
+            adapter.notifyItemInserted(alarmModelList.size() - 1); //TODO check if this one will work with changing alarm!!!!
+//            adapter.notifyDataSetChanged();
     }
 }

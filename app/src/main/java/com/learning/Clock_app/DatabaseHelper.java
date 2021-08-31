@@ -13,7 +13,6 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-
     private static final String ALARMS_TABLE = "alarms_table";
     private static final String HOUR = "HOUR";
     private static final String MINUTE = "MINUTE";
@@ -31,6 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createTableStatement = "CREATE TABLE " + ALARMS_TABLE +
                 "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + HOUR + " INTEGER, "  + MINUTE + " INTEGER, " + LABEL + " TEXT, " + DAYS + " TEXT, " + IS_ACTIVE + " BOOL)";
         db.execSQL(createTableStatement);
+        db.close();
     }
 
     @Override
@@ -50,6 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(IS_ACTIVE, alarmModel.isActive());
 
         long insert = db.insert(ALARMS_TABLE, null, cv);
+        db.close();
         return insert != -1;
     }
 
