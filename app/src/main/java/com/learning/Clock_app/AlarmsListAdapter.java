@@ -72,7 +72,6 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
         }
 
         public void bind(final AlarmModel alarmModel, final OnItemClickListener listener){
-
             itemView.setOnClickListener(v -> listener.onItemClick(alarmModel));
 
         }

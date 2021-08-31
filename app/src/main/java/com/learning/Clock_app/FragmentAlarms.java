@@ -36,10 +36,13 @@ public class FragmentAlarms extends Fragment {
         add_btn.setOnClickListener(v -> startActivity(new Intent(getActivity(), ActivityNewAlarm.class)));
 
         RecyclerView alarms_rv = view.findViewById(R.id.alarms_rv_recycler);
-        alarmModelList = new DatabaseHelper(this.getContext()).getEveryone();
+        DatabaseHelper db = new DatabaseHelper(this.getContext());
+        alarmModelList = db.getEveryone();
 
-        adapter = new AlarmsListAdapter(this.getContext(), alarmModelList, alarmModel ->
-                Toast.makeText(getContext(), alarmModel.getHour() + " " + alarmModel.getMinute(), Toast.LENGTH_SHORT).show());
+        adapter = new AlarmsListAdapter(this.getContext(), alarmModelList, alarmModel ->{
+            boolean bo = db.deleteOne(alarmModel.getId());
+            Toast.makeText(this.getContext(), bo + "", Toast.LENGTH_SHORT).show();
+        });
 
         alarms_rv.setAdapter(adapter);
         alarms_rv.setLayoutManager(new LinearLayoutManager(this.getContext()));

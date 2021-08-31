@@ -14,7 +14,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 
-    private static final String ALARMS_TABLE = "ALARMS_TABLE";
+    private static final String ALARMS_TABLE = "alarms_table";
     private static final String HOUR = "HOUR";
     private static final String MINUTE = "MINUTE";
     private static final String LABEL = "LABEL";
@@ -53,13 +53,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public boolean deleteOne(AlarmModel alarmModel){
+    public boolean deleteOne(int position){
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + ALARMS_TABLE + " WHERE " + ID + " = " + alarmModel.getId();
-        Cursor cursor = db.rawQuery(queryString, null);
-
-        return cursor.moveToFirst();
+        String queryString = "DELETE FROM " + ALARMS_TABLE + " WHERE " + ID + " = " + (position + 1);
+        db.execSQL(queryString);
+        db.execSQL("UPDATE sqlite_sequence SET SEQ=0 WHERE name = name"); //If it doesn't work than find a workarout whatever it might be
+        boolean result = db.rawQuery(queryString, null).moveToFirst();
+        db.close();
+        return result;
     }
 
     public List<AlarmModel> getEveryone(){

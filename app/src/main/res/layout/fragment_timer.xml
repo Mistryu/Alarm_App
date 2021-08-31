@@ -10,6 +10,7 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="@string/_00_00_00"
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"

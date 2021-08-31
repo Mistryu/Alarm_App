@@ -124,7 +124,7 @@ public class FragmentTimer extends Fragment {
             int SECONDS_TO_MLS = 1000;
 
             if (totalTime <= 0)
-                totalTime = hours * HOURS_TO_MLS + minutes * MINUTES_TO_MLS + seconds * SECONDS_TO_MLS;
+                totalTime = (long) hours * HOURS_TO_MLS + (long) minutes * MINUTES_TO_MLS + (long) seconds * SECONDS_TO_MLS;
 
             startTime = SystemClock.uptimeMillis();
             handler.postDelayed(runnableCountdown, 0);
