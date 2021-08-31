@@ -7,6 +7,11 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class FragmentAdapter extends FragmentStateAdapter {
+    private final Fragment[] fragments = {
+            new FragmentAlarms(),
+            new FragmentStopper(),
+            new FragmentTimer()
+    };
 
     public FragmentAdapter(FragmentManager fm, Lifecycle lifecycle) {
         super(fm, lifecycle);
@@ -14,19 +19,17 @@ public class FragmentAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return fragments.length;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case 1:
-                return new FragmentStopper();
-            case 2:
-                return new FragmentTimer();
-        }
-        return new FragmentAlarms();
-        }
+        return fragments[position];
+    }
+
+    public Fragment getFragment(int position) {
+        return fragments[position];
+    }
 }
 

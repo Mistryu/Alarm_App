@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,32 +38,18 @@ public class ActivityNewAlarm extends AppCompatActivity {
         EditText label = findViewById(R.id.alarm_et_label);
         FloatingActionButton add_btn = findViewById(R.id.alarm_btn_add);
         add_btn.setOnClickListener(vi -> {
-            AlarmModel alarmModel;
-
             int hour = timePicker.getHour();
             int minute = timePicker.getMinute();
             String label_txt = label.getText().toString();
             String days_txt = days.getText().toString();
 
-            try {
-                alarmModel = new AlarmModel(-1, hour, minute, label_txt, days_txt, true);
-                Toast.makeText(this, alarmModel.toString(), Toast.LENGTH_SHORT).show();
-
-            }catch (Exception e){
-                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
-                alarmModel = new AlarmModel(-1, -1, -1, "ERROR", "ERROR", false);
-            }
-
-            DatabaseHelper databaseHelper = new DatabaseHelper(this);
-
-            boolean success = databaseHelper.addOne(alarmModel);
-            Toast.makeText(this, "Success =" + success, Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("hour", hour);
             intent.putExtra("minute", minute);
             intent.putExtra("label", label_txt);
             intent.putExtra("days", days_txt);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
 
