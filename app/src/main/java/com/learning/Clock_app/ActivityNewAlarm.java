@@ -34,9 +34,7 @@ public class ActivityNewAlarm extends AppCompatActivity {
         TextView days = findViewById(R.id.alarm_tv_days);
 
         FloatingActionButton back_btn = findViewById(R.id.alarm_btn_back);
-        back_btn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-        });
+        back_btn.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
         EditText label = findViewById(R.id.alarm_et_label);
         FloatingActionButton add_btn = findViewById(R.id.alarm_btn_add);

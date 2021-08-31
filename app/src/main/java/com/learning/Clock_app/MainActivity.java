@@ -10,8 +10,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import Clock_app.R;
-                                                    // implements FragmentAlarms.MyInterfaceListener
-public class MainActivity extends AppCompatActivity  {
+
+public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "Main";
     private ViewPager2 viewPager2;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity  {
             if (itemId == R.id.alarms)
                 viewPager2.setCurrentItem(0);
 
-            else if ( itemId == R.id.stopper)
+            else if (itemId == R.id.stopper)
                 viewPager2.setCurrentItem(1);
 
             else if (itemId == R.id.timer)

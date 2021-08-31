@@ -24,7 +24,7 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
 
     private final Context context;
     private final List<AlarmModel> alarmModels;
-    private OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
     public AlarmsListAdapter(Context ct, List<AlarmModel> aM, OnItemClickListener listener){
         this.context = ct;
@@ -73,11 +73,7 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
 
         public void bind(final AlarmModel alarmModel, final OnItemClickListener listener){
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    listener.onItemClick(alarmModel);
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onItemClick(alarmModel));
 
         }
     }
