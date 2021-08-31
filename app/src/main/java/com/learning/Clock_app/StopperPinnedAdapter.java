@@ -18,7 +18,7 @@ public class StopperPinnedAdapter extends RecyclerView.Adapter<StopperPinnedAdap
     private final Context context;
     private final List<String> pinnedList;
 
-    public StopperPinnedAdapter(Context ct, List<String> pinnedList){
+    public StopperPinnedAdapter(Context ct, List<String> pinnedList) {
         this.context = ct;
         this.pinnedList = pinnedList;
     }
@@ -39,14 +39,14 @@ public class StopperPinnedAdapter extends RecyclerView.Adapter<StopperPinnedAdap
 
     @Override
     public int getItemCount() {
-            return pinnedList.size();
-        }
+        return pinnedList.size();
+    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView textView;
 
-        public MyViewHolder(@NonNull View itemView){
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.pinned_layout_txt);
         }

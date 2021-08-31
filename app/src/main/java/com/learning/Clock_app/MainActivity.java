@@ -1,22 +1,17 @@
 package com.learning.Clock_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
-import java.util.Objects;
-
 import Clock_app.R;
-                                                    // implements FragmentAlarms.MyInterfaceListener
-public class MainActivity extends AppCompatActivity  {
+
+public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "Main";
     private ViewPager2 viewPager2;
@@ -34,14 +29,14 @@ public class MainActivity extends AppCompatActivity  {
         FragmentAdapter fragmentAdapter = new FragmentAdapter(fm, getLifecycle());
         viewPager2.setAdapter(fragmentAdapter);
 
-        bottomNav.setOnNavigationItemSelectedListener(item -> {
+        bottomNav.setOnItemSelectedListener(item -> {
 
             int itemId = item.getItemId();
 
             if (itemId == R.id.alarms)
                 viewPager2.setCurrentItem(0);
 
-            else if ( itemId == R.id.stopper)
+            else if (itemId == R.id.stopper)
                 viewPager2.setCurrentItem(1);
 
             else if (itemId == R.id.timer)
