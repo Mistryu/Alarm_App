@@ -1,6 +1,5 @@
 package com.learning.Clock_app;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +35,7 @@ public class FragmentAlarms extends Fragment {
 
         add_btn.setOnClickListener(v -> startActivity(new Intent(getActivity(), ActivityNewAlarm.class)));
 
-        RecyclerView alarms_rv  = view.findViewById(R.id.alarms_rv_recycler);
+        RecyclerView alarms_rv = view.findViewById(R.id.alarms_rv_recycler);
         alarmModelList = new DatabaseHelper(this.getContext()).getEveryone();
 
         adapter = new AlarmsListAdapter(this.getContext(), alarmModelList, alarmModel ->
@@ -44,17 +43,11 @@ public class FragmentAlarms extends Fragment {
 
         alarms_rv.setAdapter(adapter);
         alarms_rv.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
-        onIntent(requireActivity().getIntent());
-
         return view;
     }
-    @SuppressLint("NotifyDataSetChanged")
-    private void onIntent(Intent intent){
-        if (intent != null){
-            alarmModelList.add(new AlarmModel(-1, intent.getIntExtra("hour", 12), intent.getIntExtra("minute", 0),
-                    intent.getStringExtra("label"),intent.getStringExtra("days"), true));
-            adapter.notifyDataSetChanged();
-        }
+
+    public void addAlarmToList(AlarmModel alarmModel) {
+            alarmModelList.add(alarmModel);
+            adapter.notifyItemInserted(alarmModelList.size() - 1);
     }
 }
