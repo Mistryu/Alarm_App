@@ -21,9 +21,9 @@
         android:layout_alignParentTop="true"
         android:background="@color/black"
         app:itemIconTint="@color/blue"
+        app:itemRippleColor="@android:color/transparent"
         app:itemTextColor="@color/blue"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/upper_navigation"
-        app:itemRippleColor="@android:color/transparent"/>
+        app:menu="@menu/upper_navigation" />
 
 </RelativeLayout>

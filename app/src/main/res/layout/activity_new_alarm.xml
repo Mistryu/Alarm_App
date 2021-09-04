@@ -34,36 +34,37 @@
         app:rippleColor="@color/blue"
         app:tint="@color/blue" />
 
+
     <TimePicker
         android:id="@+id/alarm_timepic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="52dp"
         android:theme="@style/Time.picker"
         android:timePickerMode="spinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alarm_tv_head" />
-
 
     <EditText
         android:id="@+id/alarm_et_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:hint="@string/label"
+        android:autofillHints="text"
         android:gravity="center"
+        android:hint="@string/label"
         android:inputType="text"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+        android:textColorLink="@color/white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/alarm_btn_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alarm_ll_repeat"
-        android:autofillHints="text"
-        android:textColorLink="@color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/alarm_ll_repeat" />
 
     <LinearLayout
         android:id="@+id/alarm_ll_repeat"
@@ -108,11 +109,11 @@
         style="@style/Buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="36dp"
         android:contentDescription="@string/add_alarm"
         android:src="@drawable/ic_add"
-        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/alarm_et_label"
         app:tint="@color/blue" />
 
 

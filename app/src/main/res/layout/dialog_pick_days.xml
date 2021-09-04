@@ -3,44 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/black">
 
     <CheckBox
         android:id="@+id/checkbox_Mo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/monday"
-        android:checked="true"/>
+        android:checked="true"
+        android:textColor="@color/white"/>
     <CheckBox
         android:id="@+id/checkbox_Tu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/tuesday"/>
+        android:text="@string/tuesday"
+        android:textColor="@color/white"/>
     <CheckBox
         android:id="@+id/checkbox_We"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/wednesday"/>
+        android:text="@string/wednesday"
+        android:textColor="@color/white"/>
     <CheckBox
         android:id="@+id/checkbox_Th"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/thursday"/>
+        android:text="@string/thursday"
+        android:textColor="@color/white"/>
     <CheckBox
         android:id="@+id/checkbox_Fr"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/friday"/>
+        android:text="@string/friday"
+        android:textColor="@color/white"/>
     <CheckBox
         android:id="@+id/checkbox_Sa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/saturday"/>
+        android:text="@string/saturday"
+        android:textColor="@color/white"/>
     <CheckBox
         android:id="@+id/checkbox_Su"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/sunday"/>
+        android:text="@string/sunday"
+        android:textColor="@color/white"/>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

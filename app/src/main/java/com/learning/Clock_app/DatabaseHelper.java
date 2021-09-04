@@ -13,6 +13,8 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    //TODO rewrite database so it doesn't rely on database id
+
     private static final String ALARMS_TABLE = "alarms_table";
     private static final String HOUR = "HOUR";
     private static final String MINUTE = "MINUTE";
@@ -28,9 +30,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement = "CREATE TABLE " + ALARMS_TABLE +
-                "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + HOUR + " INTEGER, "  + MINUTE + " INTEGER, " + LABEL + " TEXT, " + DAYS + " TEXT, " + IS_ACTIVE + " BOOL)";
+                "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + HOUR + " INTEGER, " + MINUTE + " INTEGER, " + LABEL + " TEXT, " + DAYS + " TEXT, " + IS_ACTIVE + " BOOL)";
         db.execSQL(createTableStatement);
-        db.close();
     }
 
     @Override
@@ -38,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(AlarmModel alarmModel){
+    public boolean addOne(AlarmModel alarmModel) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -54,18 +55,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public boolean deleteOne(int position){
+    public boolean deleteOne(int position) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM " + ALARMS_TABLE + " WHERE " + ID + " = " + (position + 1);
         db.execSQL(queryString);
-        db.execSQL("UPDATE sqlite_sequence SET SEQ=0 WHERE name = name"); //If it doesn't work than find a workarout whatever it might be
         boolean result = db.rawQuery(queryString, null).moveToFirst();
         db.close();
         return result;
     }
 
-    public List<AlarmModel> getEveryone(){
+    public List<AlarmModel> getEveryone() {
         List<AlarmModel> returnList = new ArrayList<>();
 
         String select_str = "SELECT * FROM " + ALARMS_TABLE;
@@ -92,7 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public AlarmModel getOne(int position){
+    public AlarmModel getOne(int position) {
         String select_str = "SELECT * FROM " + ALARMS_TABLE + " WHERE ID = " + position;
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -113,8 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             db.close();
             return new AlarmModel(position, hour, minutes, label, days, is_active);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             db.close();
             return null;

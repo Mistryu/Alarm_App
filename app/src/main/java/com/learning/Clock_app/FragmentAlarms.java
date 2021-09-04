@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,7 +39,7 @@ public class FragmentAlarms extends Fragment {
         DatabaseHelper db = new DatabaseHelper(this.getContext());
         alarmModelList = db.getEveryone();
 
-        adapter = new AlarmsListAdapter(this.getContext(), alarmModelList, alarmModel ->{
+        adapter = new AlarmsListAdapter(this.getContext(), alarmModelList, alarmModel -> {
 //            boolean bo = db.deleteOne(alarmModel.getId());
 //            Toast.makeText(this.getContext(), bo + "", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), ActivityNewAlarm.class);
@@ -59,8 +58,8 @@ public class FragmentAlarms extends Fragment {
 
     @SuppressLint("NotifyDataSetChanged")
     public void addAlarmToList(AlarmModel alarmModel) {
-            alarmModelList.add(alarmModel);
-            adapter.notifyItemInserted(alarmModelList.size() - 1); //TODO check if this one will work with changing alarm!!!!
+        alarmModelList.add(alarmModel);
+        adapter.notifyItemInserted(alarmModelList.size() - 1); //TODO check if this one will work with changing alarm!!!!
 //            adapter.notifyDataSetChanged();
     }
 }

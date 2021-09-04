@@ -1,6 +1,5 @@
 package com.learning.Clock_app;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +22,9 @@ import Clock_app.R;
 
 public class ActivityNewAlarm extends AppCompatActivity {
 
+    private Intent intent;
+    private String days_txt;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +39,12 @@ public class ActivityNewAlarm extends AppCompatActivity {
         FloatingActionButton back_btn = findViewById(R.id.alarm_btn_back);
         back_btn.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("hour")){
-            timePicker.setHour(intent.getIntExtra("hour", 12));
-            timePicker.setMinute(intent.getIntExtra("minute", 0));
-            days.setText(intent.getStringExtra("days"));
-            label.setText(intent.getStringExtra("label"));
+        Intent intentFromMain = getIntent();
+        if (intentFromMain != null && intentFromMain.hasExtra("hour")) {
+            timePicker.setHour(intentFromMain.getIntExtra("hour", 12));
+            timePicker.setMinute(intentFromMain.getIntExtra("minute", 0));
+            days.setText(intentFromMain.getStringExtra("days"));
+            label.setText(intentFromMain.getStringExtra("label"));
         }
 
         FloatingActionButton add_btn = findViewById(R.id.alarm_btn_add);
@@ -50,20 +52,21 @@ public class ActivityNewAlarm extends AppCompatActivity {
             int hour = timePicker.getHour();
             int minute = timePicker.getMinute();
             String label_txt = label.getText().toString();
-            String days_txt = days.getText().toString();
+            days_txt = days.getText().toString();
+
+            intent = new Intent(this, MainActivity.class);
 
 
-            Intent intentMain = new Intent(this, MainActivity.class);
-            intentMain.putExtra("hour", hour);
-            intentMain.putExtra("minute", minute);
-            intentMain.putExtra("label", label_txt);
-            intentMain.putExtra("days", days_txt);
-            intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            if (intent != null && intent.hasExtra("id")) { //lambda...
+            intent.putExtra("hour", hour);
+            intent.putExtra("minute", minute);
+            intent.putExtra("label", label_txt);
+            intent.putExtra("days", days_txt);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            if (intentFromMain != null && intentFromMain.hasExtra("id")) { //lambda...
                 DatabaseHelper db = new DatabaseHelper(this);
-                db.deleteOne(intent.getIntExtra("id", -1));
+                db.deleteOne(intentFromMain.getIntExtra("id", -1));
             }
-            startActivity(intentMain);
+            startActivity(intent);
         });
 
         LinearLayout linearLayout = findViewById(R.id.alarm_ll_repeat);
@@ -93,12 +96,14 @@ public class ActivityNewAlarm extends AppCompatActivity {
         });
     }
 
-    private void changeDays(TextView days, List<CheckBox> checkDays){
+    private void changeDays(TextView days, List<CheckBox> checkDays) {
         StringBuilder week_day = new StringBuilder();
-        for (CheckBox cb: checkDays) {
-            week_day.append(cb.isChecked() ? cb.getText().toString().substring(0,3) + " ": "");
+        int count = 0;
+        for (CheckBox cb : checkDays) {
+            week_day.append(cb.isChecked() ? getResources().getStringArray(R.array.days_array)[count].substring(0, 3) + " " : "");
+            count++;
         }
-        days.setText(week_day.toString().equals( "Mon Tue Wed Thu Fri Sat Sun ") ? "All Week" : week_day.toString());
+        days.setText(week_day.toString().equals("Mon Tue Wed Thu Fri Sat Sun ") ? "All Week" : week_day.toString());
     }
 }
 

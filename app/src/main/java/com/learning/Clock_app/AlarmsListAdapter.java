@@ -26,7 +26,7 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
     private final List<AlarmModel> alarmModels;
     private final OnItemClickListener listener;
 
-    public AlarmsListAdapter(Context ct, List<AlarmModel> aM, OnItemClickListener listener){
+    public AlarmsListAdapter(Context ct, List<AlarmModel> aM, OnItemClickListener listener) {
         this.context = ct;
         this.alarmModels = aM;
         this.listener = listener;
@@ -46,7 +46,8 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
         //Here I assign values to the items that I get from database
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         AlarmModel alarmModel = databaseHelper.getOne(position + 1);
-        holder.time_tv.setText(alarmModel.getHour() + ":" + alarmModel.getMinute());
+        int minute = alarmModel.getMinute();
+        holder.time_tv.setText(alarmModel.getHour() + ":" + (minute < 10 ? "0" + minute : minute));
         holder.days_tv.setText(alarmModel.getDays());
         holder.switch_material.setActivated(true);
         holder.bind(alarmModels.get(position), listener);
@@ -64,14 +65,14 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
         private final SwitchMaterial switch_material;
 
 
-        public MyViewHolder(@NonNull View itemView){
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             time_tv = itemView.findViewById(R.id.alarm_lay_time_tv);
             days_tv = itemView.findViewById(R.id.alarm_lay_days_tv);
             switch_material = itemView.findViewById(R.id.alarm_aly_switch);
         }
 
-        public void bind(final AlarmModel alarmModel, final OnItemClickListener listener){
+        public void bind(final AlarmModel alarmModel, final OnItemClickListener listener) {
             itemView.setOnClickListener(v -> listener.onItemClick(alarmModel));
 
         }
