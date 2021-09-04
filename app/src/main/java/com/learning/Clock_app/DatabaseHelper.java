@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement = "CREATE TABLE " + ALARMS_TABLE +
-                "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + HOUR + " INTEGER, " + MINUTE + " INTEGER, " + LABEL + " TEXT, " + DAYS + " TEXT, " + IS_ACTIVE + " BOOL)";
+                "(" + ID + " INTEGER, " + HOUR + " INTEGER, " + MINUTE + " INTEGER, " + LABEL + " TEXT, " + DAYS + " TEXT, " + IS_ACTIVE + " BOOL)";
         db.execSQL(createTableStatement);
     }
 
@@ -39,29 +39,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(AlarmModel alarmModel) {
+    public int addOne(AlarmModel alarmModel) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        int id = nextID();
 
         cv.put(HOUR, alarmModel.getHour());
         cv.put(MINUTE, alarmModel.getMinute());
         cv.put(LABEL, alarmModel.getLabel());
         cv.put(DAYS, alarmModel.getDays());
+        cv.put(ID, id);
         cv.put(IS_ACTIVE, alarmModel.isActive());
 
         long insert = db.insert(ALARMS_TABLE, null, cv);
         db.close();
-        return insert != -1;
+        return id;
     }
 
-    public boolean deleteOne(int position) {
+    public boolean deleteOne(int id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + ALARMS_TABLE + " WHERE " + ID + " = " + (position + 1);
+        String queryString = "DELETE FROM " + ALARMS_TABLE + " WHERE " + ID + " = " + id;
         db.execSQL(queryString);
         boolean result = db.rawQuery(queryString, null).moveToFirst();
-        db.close();
         return result;
     }
 
@@ -92,8 +93,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public AlarmModel getOne(int position) {
-        String select_str = "SELECT * FROM " + ALARMS_TABLE + " WHERE ID = " + position;
+    public AlarmModel getOne(int id) {
+        String select_str = "SELECT * FROM " + ALARMS_TABLE + " WHERE ID = " + id;
         SQLiteDatabase db = this.getReadableDatabase();
 
         try (Cursor cursor = db.rawQuery(select_str, null)) {
@@ -112,11 +113,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
 
             db.close();
-            return new AlarmModel(position, hour, minutes, label, days, is_active);
+            return new AlarmModel(id, hour, minutes, label, days, is_active);
         } catch (Exception e) {
             e.printStackTrace();
             db.close();
             return null;
         }
+    }
+    private int nextID(){
+        String select = "SELECT * FROM " + ALARMS_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        int id = -1;
+        try (Cursor cursor = db.rawQuery(select, null)) {
+            if (cursor.moveToFirst()) {
+                do {
+                    id = cursor.getInt(0);
+                } while (cursor.moveToNext());
+            }
+        }
+        return id + 1;
     }
 }

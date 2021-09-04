@@ -54,33 +54,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        int hour = intent.getIntExtra("hour", 4242);
-        int minute = intent.getIntExtra("minute", 4242);
-        String label = intent.getStringExtra("label");
-        String days = intent.getStringExtra("days");
+        if (intent.hasExtra("hour")){
+            int hour = intent.getIntExtra("hour", 12);
+            int minute = intent.getIntExtra("minute", 0);
+            String label = intent.getStringExtra("label");
+            String days = intent.getStringExtra("days");
 
-        int id = 0;
-        AlarmModel alarmModel;
-        try {
-            alarmModel = new AlarmModel(-1, hour, minute, label, days, true);
-            AlarmScheduler alarmScheduler = new AlarmScheduler(id, hour, minute, days, this);
-            alarmScheduler.scheduleAlarm(); //Find How to get ID and set it as id in notification
-
-        } catch (Exception e) {
-            Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
-            alarmModel = null;
-        }
-
-        if (alarmModel != null) {
-
+            AlarmModel alarmModel;
             DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
-            boolean success = databaseHelper.addOne(alarmModel);
-            Toast.makeText(this, "Success =" + success, Toast.LENGTH_SHORT).show();
+            try {
+                alarmModel = new AlarmModel(-1, hour, minute, label, days, true);
+                int id = databaseHelper.addOne(alarmModel); //I get the id and set it here
+                alarmModel.setId(id);
 
-            FragmentAdapter adapter = (FragmentAdapter) viewPager2.getAdapter();
-            if (adapter != null) {
-                ((FragmentAlarms) adapter.getFragment(0)).addAlarmToList(alarmModel);
+                AlarmScheduler alarmScheduler = new AlarmScheduler(id, hour, minute, days, this);
+                alarmScheduler.scheduleAlarm();
+
+            } catch (Exception e) {
+                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+                alarmModel = null;
+            }
+
+            if (alarmModel != null) {
+                FragmentAdapter adapter = (FragmentAdapter) viewPager2.getAdapter();
+                if (adapter != null) {
+                    ((FragmentAlarms) adapter.getFragment(0)).addAlarmToList(alarmModel);
+                }
             }
         }
     }

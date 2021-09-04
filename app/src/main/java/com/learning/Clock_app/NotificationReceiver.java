@@ -21,7 +21,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         Intent my_intent = new Intent(context, MainActivity.class);
         my_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        final int ID = my_intent.getIntExtra("ID", 0);
+        final int ID = intent.getIntExtra("ID", 0);
 
         @SuppressLint("UnspecifiedImmutableFlag") PendingIntent resultPendingIntent = PendingIntent.getActivity(context,
                 ID, my_intent,
@@ -39,7 +39,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .build();
 
-
         AlarmScheduler alarmScheduler = new AlarmScheduler(ID, intent.getIntExtra("hour", 12),
                 intent.getIntExtra("minute", 0), intent.getStringExtra("days"), context);
         alarmScheduler.scheduleAlarm();
@@ -48,4 +47,5 @@ public class NotificationReceiver extends BroadcastReceiver {
         notificationManager.notify(ID, notification);
 
     }
+
 }

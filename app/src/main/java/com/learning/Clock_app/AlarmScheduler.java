@@ -28,20 +28,20 @@ public class AlarmScheduler {
     }
 
     public void scheduleAlarm() {
+        final int WEEK_TO_MLS = 604_800_000;
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
-
         int dayOfWeek = getDay(days, hour, minute);
-        long fire_time = calendar.getTimeInMillis();
-
-        if (Calendar.getInstance().getTimeInMillis() >= fire_time) { //Move 1 week
-            dayOfWeek = getDay(days, hour, minute);
-        }
+        long temp = Calendar.getInstance().getTimeInMillis();
         calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 
+        long fire_time = calendar.getTimeInMillis();
+        if (Calendar.getInstance().getTimeInMillis() >= fire_time) { //next
+            fire_time += WEEK_TO_MLS;
+        }
 
         Intent myIntent = new Intent(context, NotificationReceiver.class);
         myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

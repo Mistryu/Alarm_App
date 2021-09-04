@@ -45,7 +45,7 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //Here I assign values to the items that I get from database
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
-        AlarmModel alarmModel = databaseHelper.getOne(position + 1);
+        AlarmModel alarmModel = databaseHelper.getOne(alarmModels.get(position).getId());
         int minute = alarmModel.getMinute();
         holder.time_tv.setText(alarmModel.getHour() + ":" + (minute < 10 ? "0" + minute : minute));
         holder.days_tv.setText(alarmModel.getDays());

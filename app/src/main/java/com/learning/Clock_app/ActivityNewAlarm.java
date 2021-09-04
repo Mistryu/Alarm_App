@@ -40,7 +40,9 @@ public class ActivityNewAlarm extends AppCompatActivity {
         back_btn.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
         Intent intentFromMain = getIntent();
-        if (intentFromMain != null && intentFromMain.hasExtra("hour")) {
+
+        boolean clicked_from_rv = intentFromMain != null && intentFromMain.hasExtra("hour");
+        if (clicked_from_rv) {
             timePicker.setHour(intentFromMain.getIntExtra("hour", 12));
             timePicker.setMinute(intentFromMain.getIntExtra("minute", 0));
             days.setText(intentFromMain.getStringExtra("days"));
@@ -62,7 +64,8 @@ public class ActivityNewAlarm extends AppCompatActivity {
             intent.putExtra("label", label_txt);
             intent.putExtra("days", days_txt);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            if (intentFromMain != null && intentFromMain.hasExtra("id")) { //lambda...
+
+            if (clicked_from_rv) {
                 DatabaseHelper db = new DatabaseHelper(this);
                 db.deleteOne(intentFromMain.getIntExtra("id", -1));
             }

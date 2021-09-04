@@ -59,7 +59,7 @@ public class FragmentAlarms extends Fragment {
     @SuppressLint("NotifyDataSetChanged")
     public void addAlarmToList(AlarmModel alarmModel) {
         alarmModelList.add(alarmModel);
-        adapter.notifyItemInserted(alarmModelList.size() - 1); //TODO check if this one will work with changing alarm!!!!
+        adapter.notifyDataSetChanged(); //TODO check if this one will work with changing alarm!!!!
 //            adapter.notifyDataSetChanged();
     }
 }
