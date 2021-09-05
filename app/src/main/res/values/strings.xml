@@ -26,4 +26,5 @@
     <string name="channel_name">alarm_channel</string>
     <string name="channel_description">This channel manages alarms</string>
     <string name="perform">Do you want to perform this action</string>
+    <string name="delete_alarm">Delete alarm</string>
 </resources>

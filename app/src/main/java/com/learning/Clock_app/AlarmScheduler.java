@@ -35,7 +35,6 @@ public class AlarmScheduler {
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         int dayOfWeek = getDay(days, hour, minute);
-        long temp = Calendar.getInstance().getTimeInMillis();
         calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 
         long fire_time = calendar.getTimeInMillis();
@@ -50,13 +49,12 @@ public class AlarmScheduler {
         myIntent.putExtra("minute", minute);
         myIntent.putExtra("days", days);
 
-        // Creating a pending intent and wrapping our intent                //requestCone = thing that we can use to get it back
         @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, fire_time, pendingIntent);
 
     }
 
-    private int getDay(String days, int hour, int minute) {   //TODO This doesn't work take care of it !!!!
+    private int getDay(String days, int hour, int minute) {
         List<Integer> days_to_int = new ArrayList<>();
         final List<String> DAYS = Arrays.asList("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
 

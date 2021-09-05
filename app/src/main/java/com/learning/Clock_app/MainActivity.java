@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -54,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (intent.hasExtra("hour")){
+        FragmentAlarms fragmentAlarms = getFragmentAlarms();
+
+        if (intent.hasExtra("hour")) {
             int hour = intent.getIntExtra("hour", 12);
             int minute = intent.getIntExtra("minute", 0);
             String label = intent.getStringExtra("label");
@@ -76,16 +79,16 @@ public class MainActivity extends AppCompatActivity {
                 alarmModel = null;
             }
 
-            if (alarmModel != null) {
-                FragmentAdapter adapter = (FragmentAdapter) viewPager2.getAdapter();
-                if (adapter != null) {
-                    ((FragmentAlarms) adapter.getFragment(0)).addAlarmToList(alarmModel);
-                }
-            }
+            if (alarmModel != null && fragmentAlarms != null)
+                    fragmentAlarms.addAlarmToList(alarmModel);
         }
-    }
 
-    private void createNotificationChannel() {
+
+        if (intent.hasExtra("delete") && fragmentAlarms != null)
+            fragmentAlarms.deleteFromAlarmList(intent.getIntExtra("delete", -1));
+        }
+
+    private void createNotificationChannel () {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         CharSequence name = getString(R.string.channel_name);
@@ -102,4 +105,11 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.createNotificationChannel(channel);
     }
 
+    private FragmentAlarms getFragmentAlarms(){
+        FragmentAdapter adapter = (FragmentAdapter) viewPager2.getAdapter();
+        if (adapter != null)
+            return (FragmentAlarms) adapter.getFragment(0);
+        else
+            return null;
+        }
 }

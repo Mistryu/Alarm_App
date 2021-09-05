@@ -40,10 +40,8 @@ public class FragmentAlarms extends Fragment {
         alarmModelList = db.getEveryone();
 
         adapter = new AlarmsListAdapter(this.getContext(), alarmModelList, alarmModel -> {
-//            boolean bo = db.deleteOne(alarmModel.getId());
-//            Toast.makeText(this.getContext(), bo + "", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), ActivityNewAlarm.class);
-            intent.putExtra("id", alarmModel.getId());
+            intent.putExtra("ID", alarmModel.getId());
             intent.putExtra("hour", alarmModel.getHour());
             intent.putExtra("minute", alarmModel.getMinute());
             intent.putExtra("days", alarmModel.getDays());
@@ -59,7 +57,11 @@ public class FragmentAlarms extends Fragment {
     @SuppressLint("NotifyDataSetChanged")
     public void addAlarmToList(AlarmModel alarmModel) {
         alarmModelList.add(alarmModel);
-        adapter.notifyDataSetChanged(); //TODO check if this one will work with changing alarm!!!!
-//            adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    public void deleteFromAlarmList(int id){
+        alarmModelList.removeIf(alarmModel -> alarmModel.getId() == id);
+        adapter.notifyDataSetChanged();
     }
 }

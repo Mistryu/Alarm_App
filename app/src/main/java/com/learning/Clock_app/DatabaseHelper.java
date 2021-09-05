@@ -51,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(DAYS, alarmModel.getDays());
         cv.put(ID, id);
         cv.put(IS_ACTIVE, alarmModel.isActive());
-
+        db.execSQL("DELETE FROM " + ALARMS_TABLE + " WHERE " + HOUR + " = NULL");
         long insert = db.insert(ALARMS_TABLE, null, cv);
         db.close();
         return id;
@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean deleteOne(int id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + ALARMS_TABLE + " WHERE " + ID + " = " + id;
+        String queryString = "UPDATE " + ALARMS_TABLE + " SET " + HOUR + " = null, " + MINUTE + " = null WHERE " + ID + " = " + id;
         db.execSQL(queryString);
         boolean result = db.rawQuery(queryString, null).moveToFirst();
         return result;
@@ -69,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<AlarmModel> getEveryone() {
         List<AlarmModel> returnList = new ArrayList<>();
 
-        String select_str = "SELECT * FROM " + ALARMS_TABLE;
+        String select_str = "SELECT * FROM " + ALARMS_TABLE + " WHERE " + HOUR + " IS NOT NULL";
         SQLiteDatabase db = this.getReadableDatabase();
 
         try (Cursor cursor = db.rawQuery(select_str, null)) {

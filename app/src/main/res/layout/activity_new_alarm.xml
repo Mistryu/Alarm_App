@@ -97,7 +97,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:src="@drawable/ic_arrow_right"
             app:tint="@color/blue"
             android:contentDescription="@string/days" />
@@ -110,10 +110,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="36dp"
         android:contentDescription="@string/add_alarm"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/blue" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/alarm_btn_delete"
+        style="@style/Buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginBottom="36dp"
+        android:contentDescription="@string/delete_alarm"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:tint="@color/blue" />
 
 
