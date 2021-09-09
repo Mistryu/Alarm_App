@@ -1,14 +1,17 @@
 package com.learning.Clock_app;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -80,15 +84,20 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (alarmModel != null && fragmentAlarms != null)
-                    fragmentAlarms.addAlarmToList(alarmModel);
+                fragmentAlarms.addAlarmToList(alarmModel);
         }
 
 
-        if (intent.hasExtra("delete") && fragmentAlarms != null)
-            fragmentAlarms.deleteFromAlarmList(intent.getIntExtra("delete", -1));
-        }
+        if (intent.hasExtra("delete") && fragmentAlarms != null) {
+            int id = intent.getIntExtra("delete", -1);
 
-    private void createNotificationChannel () {
+            fragmentAlarms.deleteFromAlarmList(id);
+            AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.cancel(PendingIntent.getBroadcast(this, id, new Intent(this, NotificationReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT));
+        }
+    }
+
+    private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         CharSequence name = getString(R.string.channel_name);
@@ -105,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.createNotificationChannel(channel);
     }
 
-    private FragmentAlarms getFragmentAlarms(){
+    private FragmentAlarms getFragmentAlarms() {
         FragmentAdapter adapter = (FragmentAdapter) viewPager2.getAdapter();
         if (adapter != null)
             return (FragmentAlarms) adapter.getFragment(0);
         else
             return null;
-        }
+    }
 }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String queryString = "UPDATE " + ALARMS_TABLE + " SET " + HOUR + " = null, " + MINUTE + " = null WHERE " + ID + " = " + id;
         db.execSQL(queryString);
         boolean result = db.rawQuery(queryString, null).moveToFirst();
+        db.close();
         return result;
     }
 
@@ -120,7 +122,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
-    private int nextID(){
+
+    private int nextID() {
         String select = "SELECT * FROM " + ALARMS_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -133,5 +136,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return id + 1;
+    }
+
+    public void changeStatus(@NonNull int id, int new_status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + ALARMS_TABLE + " SET " + IS_ACTIVE + " = " + new_status + " WHERE " + ID + " = " + id);
+        db.close();
     }
 }

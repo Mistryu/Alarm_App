@@ -27,6 +27,7 @@ public class AlarmScheduler {
         this.context = context;
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     public void scheduleAlarm() {
         final int WEEK_TO_MLS = 604_800_000;
 
@@ -49,7 +50,7 @@ public class AlarmScheduler {
         myIntent.putExtra("minute", minute);
         myIntent.putExtra("days", days);
 
-        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, fire_time, pendingIntent);
 
     }

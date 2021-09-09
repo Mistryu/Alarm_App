@@ -29,11 +29,5 @@
      <item name="android:textColorPrimary">@color/white</item>
      <item name="android:textColorSecondary">@color/white</item>
  </style>
-    
-    <style name="Swich" parent="Widget.AppCompat.CompoundButton.Switch">
-        <item name="android:colorPrimary">@color/blue</item>
-        <item name="android:color">@color/blue</item>
-
-    </style>
 
 </resources>

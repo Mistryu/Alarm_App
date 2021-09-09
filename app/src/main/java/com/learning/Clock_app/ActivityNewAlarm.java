@@ -68,22 +68,27 @@ public class ActivityNewAlarm extends AppCompatActivity {
             int minute = timePicker.getMinute();
             String label_txt = label.getText().toString();
             String days_txt = days.getText().toString();
+            if (label_txt.length() > 42)
+                Toast.makeText(this, "Label must be under 42 characters!", Toast.LENGTH_SHORT).show();
+            else {
+                Intent intent = new Intent(this, MainActivity.class);
 
-            Intent intent = new Intent(this, MainActivity.class);
+                if (clicked_from_rv) {
+                    DatabaseHelper db = new DatabaseHelper(this);
+                    int delete_id = intentFromMain.getIntExtra("ID", -1);
+                    db.deleteOne(delete_id);
+                    intent.putExtra("delete", delete_id);
+                }
 
-            intent.putExtra("hour", hour);
-            intent.putExtra("minute", minute);
-            intent.putExtra("label", label_txt);
-            intent.putExtra("days", days_txt);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-            if (clicked_from_rv) {
-                DatabaseHelper db = new DatabaseHelper(this);
-                int delete_id = intentFromMain.getIntExtra("ID", -1);
-                db.deleteOne(delete_id);
-                intent.putExtra("delete", delete_id);
+                else {
+                    intent.putExtra("hour", hour);
+                    intent.putExtra("minute", minute);
+                    intent.putExtra("label", label_txt);
+                    intent.putExtra("days", days_txt);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                }
+                startActivity(intent);
             }
-            startActivity(intent);
         });
 
         LinearLayout linearLayout = findViewById(R.id.alarm_ll_repeat);
@@ -123,8 +128,7 @@ public class ActivityNewAlarm extends AppCompatActivity {
         if (!week_day_str.equals("")) {
             days.setText(week_day.toString().equals("Mon Tue Wed Thu Fri Sat Sun ") ? "All Week" : week_day_str);
             return true;
-        }
-        else {
+        } else {
             Toast.makeText(this, "You need to have at least one day selected!", Toast.LENGTH_SHORT).show();
             return false;
         }
