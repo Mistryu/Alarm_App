@@ -1,4 +1,4 @@
-package com.learning.Clock_app;
+package com.learning.Clock_app.Fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -17,11 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.learning.Clock_app.Adapters.StopperPinnedAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Clock_app.R;
+import com.learning.Clock_app.R;
 
 public class FragmentStopper extends Fragment {
 

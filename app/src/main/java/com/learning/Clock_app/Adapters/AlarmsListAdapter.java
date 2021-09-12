@@ -1,4 +1,4 @@
-package com.learning.Clock_app;
+package com.learning.Clock_app.Adapters;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -14,10 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.learning.Clock_app.Helpers.AlarmModel;
+import com.learning.Clock_app.Helpers.AlarmScheduler;
+import com.learning.Clock_app.Helpers.DatabaseHelper;
+import com.learning.Clock_app.Helpers.NotificationReceiver;
+import com.learning.Clock_app.R;
 
 import java.util.List;
-
-import Clock_app.R;
 
 public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.MyViewHolder> {
 
@@ -95,7 +98,6 @@ public class AlarmsListAdapter extends RecyclerView.Adapter<AlarmsListAdapter.My
 
         public void bind(final AlarmModel alarmModel, final OnItemClickListener listener) {
             itemView.setOnClickListener(v -> listener.onItemClick(alarmModel));
-
         }
     }
 

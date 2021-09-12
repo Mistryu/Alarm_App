@@ -1,10 +1,14 @@
-package com.learning.Clock_app;
+package com.learning.Clock_app.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.learning.Clock_app.Fragments.FragmentAlarms;
+import com.learning.Clock_app.Fragments.FragmentStopper;
+import com.learning.Clock_app.Fragments.FragmentTimer;
 
 public class FragmentAdapter extends FragmentStateAdapter {
     private final Fragment[] fragments = {

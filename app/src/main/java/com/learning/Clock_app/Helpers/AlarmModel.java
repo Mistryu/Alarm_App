@@ -1,4 +1,4 @@
-package com.learning.Clock_app;
+package com.learning.Clock_app.Helpers;
 
 public class AlarmModel {
 

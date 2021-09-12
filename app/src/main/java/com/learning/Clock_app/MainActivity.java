@@ -5,8 +5,11 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,8 +19,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import Clock_app.R;
+import com.learning.Clock_app.Helpers.AlarmModel;
+import com.learning.Clock_app.Helpers.AlarmScheduler;
+import com.learning.Clock_app.Helpers.DatabaseHelper;
+import com.learning.Clock_app.Adapters.FragmentAdapter;
+import com.learning.Clock_app.Fragments.FragmentAlarms;
+import com.learning.Clock_app.Helpers.NotificationReceiver;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -108,8 +115,14 @@ public class MainActivity extends AppCompatActivity {
         channel.setVibrationPattern(new long[]{0, 100, 1000, 300, 200, 100, 500, 200, 100});
         channel.setDescription(description);
 
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
+//        Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" +getPackageName()+"/"+R.raw.alarm_sound);
+//
+//        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+//                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+//                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+//                .build();
+//        channel.setSound(alarmSound, audioAttributes);
+
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }

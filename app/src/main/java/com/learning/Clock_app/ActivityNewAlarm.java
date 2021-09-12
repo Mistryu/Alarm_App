@@ -16,11 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.learning.Clock_app.Helpers.DatabaseHelper;
 
 import java.util.Arrays;
 import java.util.List;
-
-import Clock_app.R;
 
 public class ActivityNewAlarm extends AppCompatActivity {
 
@@ -34,6 +33,7 @@ public class ActivityNewAlarm extends AppCompatActivity {
 
         TextView days = findViewById(R.id.alarm_tv_days);
         EditText label = findViewById(R.id.alarm_et_label);
+        FloatingActionButton add_btn = findViewById(R.id.alarm_btn_add);
 
         findViewById(R.id.alarm_btn_back).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
@@ -45,6 +45,8 @@ public class ActivityNewAlarm extends AppCompatActivity {
             timePicker.setMinute(intentFromMain.getIntExtra("minute", 0));
             days.setText(intentFromMain.getStringExtra("days"));
             label.setText(intentFromMain.getStringExtra("label"));
+
+            add_btn.setImageResource(R.drawable.ic_check);
 
             FloatingActionButton delete_btn = findViewById(R.id.alarm_btn_delete);
             delete_btn.setVisibility(View.VISIBLE);
@@ -63,7 +65,7 @@ public class ActivityNewAlarm extends AppCompatActivity {
         }
 
 
-        findViewById(R.id.alarm_btn_add).setOnClickListener(vi -> {
+        add_btn.setOnClickListener(vi -> {
             int hour = timePicker.getHour();
             int minute = timePicker.getMinute();
             String label_txt = label.getText().toString();
@@ -79,14 +81,11 @@ public class ActivityNewAlarm extends AppCompatActivity {
                     db.deleteOne(delete_id);
                     intent.putExtra("delete", delete_id);
                 }
-
-                else {
-                    intent.putExtra("hour", hour);
-                    intent.putExtra("minute", minute);
-                    intent.putExtra("label", label_txt);
-                    intent.putExtra("days", days_txt);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                }
+                intent.putExtra("hour", hour);
+                intent.putExtra("minute", minute);
+                intent.putExtra("label", label_txt);
+                intent.putExtra("days", days_txt);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });

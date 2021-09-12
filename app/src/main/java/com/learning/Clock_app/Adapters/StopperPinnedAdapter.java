@@ -1,4 +1,4 @@
-package com.learning.Clock_app;
+package com.learning.Clock_app.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import Clock_app.R;
+import com.learning.Clock_app.R;
 
 public class StopperPinnedAdapter extends RecyclerView.Adapter<StopperPinnedAdapter.MyViewHolder> {
 

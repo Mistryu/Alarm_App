@@ -1,4 +1,4 @@
-package com.learning.Clock_app;
+package com.learning.Clock_app.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -15,10 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.learning.Clock_app.ActivityNewAlarm;
+import com.learning.Clock_app.Helpers.AlarmModel;
+import com.learning.Clock_app.Adapters.AlarmsListAdapter;
+import com.learning.Clock_app.Helpers.DatabaseHelper;
 
 import java.util.List;
 
-import Clock_app.R;
+import com.learning.Clock_app.R;
 
 public class FragmentAlarms extends Fragment {
 

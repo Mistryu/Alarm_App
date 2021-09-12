@@ -1,6 +1,7 @@
-package com.learning.Clock_app;
+package com.learning.Clock_app.Fragments;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -17,7 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import Clock_app.R;
+import com.learning.Clock_app.R;
 
 public class FragmentTimer extends Fragment {
 
@@ -145,7 +146,6 @@ public class FragmentTimer extends Fragment {
             timeText.setVisibility(View.GONE);
 
             handler.removeCallbacks(runnableCountdown);
-
         }
 
         public void countdownPause(){
@@ -154,6 +154,7 @@ public class FragmentTimer extends Fragment {
 
         private final Runnable runnableCountdown = new Runnable() {
             String text;
+            final MediaPlayer song = MediaPlayer.create(getContext(), R.raw.alarm_sound);
 
             @SuppressLint("DefaultLocale")
             @Override
@@ -162,9 +163,10 @@ public class FragmentTimer extends Fragment {
                 totalTime = totalTime - millisecondTime;
                 startTime = SystemClock.uptimeMillis();
 
-                if (totalTime <= 0)
+                if (totalTime <= 0) {
                     countdownStop();
-
+                    song.start();
+                }
                 seconds = (int) (totalTime / 1000);
                 minutes = seconds / 60;
                 hours = minutes / 60;

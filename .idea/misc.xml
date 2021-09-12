@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/drawable/ic_add.xml" value="0.28703703703703703" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/drawable/ic_alarm.xml" value="0.28703703703703703" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/drawable/ic_arrow_right.xml" value="0.28703703703703703" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/drawable/ic_back.xml" value="0.28703703703703703" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/drawable/ic_baseline_play_arrow_48.xml" value="0.28703703703703703" />
+        <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/drawable/ic_check.xml" value="0.22083333333333333" />
         <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/drawable/switch_track.xml" value="0.4203125" />
         <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/layout/activity_main.xml" value="0.536" />
         <entry key="..\:/Programing_stuff/java/Clock-app/app/src/main/res/layout/activity_new_alarm.xml" value="0.4041666666666667" />

@@ -1,4 +1,4 @@
-package com.learning.Clock_app;
+package com.learning.Clock_app.Helpers;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
